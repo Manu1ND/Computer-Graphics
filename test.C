@@ -24,7 +24,7 @@ p:
   before = time(0);
   f1 = f2 = f3 = f4 = exitch = 0;
   setaspectratio(1600, 1280);
-  c = 0;
+  c = 0; //coins
   x = 80; //start point
   y = 40; //start point
   maze(x, y);
@@ -33,25 +33,25 @@ p:
   {
     
     ch = getch();
-    if ((x == 120 && y == 280) && (f1 < 1))
+    if ((x == 120 && y == 280) && (f1 < 1)) //coordinates of coin 1
     {
       f1 = 1;
       c = c + 1;
     }
     
-    if ((x == 210 && y == 140) && (f2 < 1))
+    if ((x == 210 && y == 140) && (f2 < 1)) //coordinates of coin 2
     {
       f2 = 1;
       c = c + 1;
     }
 
-    if ((x == 100 && y == 100) && (f3 < 1))
+    if ((x == 100 && y == 100) && (f3 < 1)) //coordinates of coin 3
     {
       f3 = 1;
       c = c + 1;
     }
     
-    if ((x == 200 && y == 320) && (f4 < 1))
+    if ((x == 200 && y == 320) && (f4 < 1)) //coordinates of coin 4
     {
       f4 = 1;
       c = c + 1;
@@ -104,7 +104,7 @@ p:
 
     cleardevice();
     maze(x, y);
-    if (x == 310)
+    if (x == 310) //end point
     {
       outtextxy(350, 200, "YOU WIN");
       diff = time(0) - before;
@@ -177,15 +177,15 @@ void maze(int x, int y)
   line(290, 290, 310, 290);
   line(290, 310, 310, 310);
 
-  if (c < 4)
+  if (c < 4) //to open exit line after collecting all coins
     line(290, 290, 290, 310);
-  if (f1 != 1)
+  if (f1 != 1) //check coin collected
     circle(120, 280, 3);
-  if (f2 != 1)
+  if (f2 != 1) //check coin collected
     circle(210, 140, 3);
-  if (f3 != 1)
+  if (f3 != 1) //check coin collected
     circle(100, 100, 3);
-  if (f4 != 1)
+  if (f4 != 1) //check coin collected
     circle(200, 320, 3);
 
   setcolor(WHITE);
@@ -194,5 +194,5 @@ void maze(int x, int y)
   setcolor(YELLOW);
   circle(x, y, 3);
   setfillstyle(1, 2);
-  floodfill(x, y, 14);
+  floodfill(x, y, 14); // color pointer
 }
