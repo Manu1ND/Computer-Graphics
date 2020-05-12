@@ -2,7 +2,7 @@
 #include <graphics.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <conio.h>
+#include <conio.h
 void maze(int, int);
 char a[50]; //to store buffer
 int f1, f2, f3, f4; //to check collected coins
