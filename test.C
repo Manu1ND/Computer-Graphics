@@ -19,12 +19,12 @@ void main()
   char ck[100];
 
   /* request auto detection */
-  int gdriver = DETECT, gmode, errorcode;
+  int gd = DETECT, gm;
   char ch = 0, h;
   int x, y;
 
   /* initialize graphics and local variables */
-  initgraph(&gdriver, &gmode, "C://TURBOC3//BGI ");
+  initgraph(&gd, &gm, "C://TURBOC3//BGI");
 p:
   cleardevice();
   before = clock();
@@ -37,16 +37,7 @@ p:
   y = 40;
   maze(x, y);
   ch = 0;
-  /* read result of initialization */
-  errorcode = graphresult();
-  /* an error occurred */
-  if (errorcode != grOk)
-  {
-    printf("Graphics error: %s\n", grapherrormsg(errorcode));
-    printf("Press any key to halt:");
-    getch();
-    exit(1);
-  }
+ 
   while (ch != 27) //escape=27
   {
     if (l == 0)
