@@ -1,246 +1,233 @@
-#include <stdio.h>
+#include <time.h>
 #include <graphics.h>
-#include <conio.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <conio.h>
+void maze(int, int);
+char a[50];
+int f1 = 0, f2 = 0, f3 = 0, f4 = 0, f5 = 0;
+int c = 0, g, l;
+int f11 = 1, f22 = 0, f33 = 0, f44 = 0, f55 = 0;
+clock_t before;
+clock_t diff;
 
-void countm(int *co_mo, int *inc)
+char z;
+int tt = 0;
+void main()
 {
-  char arr[50];
-  *inc += 5;
-  settextstyle(0, HORIZ_DIR, 0);
-  setcolor(8);
-  arc(530, 200, 340 - (*inc), 80 - (*inc), 50);
-  arc(530, 200, 340 - (*inc), 80 - (*inc), 51);
-  setcolor(8);
-  arc(530, 200, 100 + (*inc), 200 + (*inc), 55);
-  arc(530, 200, 100 + (*inc), 200 + (*inc), 56);
-  setcolor(7);
-  arc(530, 200, 220 - (*inc), 320 + (*inc), 60);
-  setcolor(14);
-  outtextxy(515, 198, "MOVE");
-  sprintf(arr, "%d", *co_mo);
-  setcolor(3);
-  outtextxy(520, 215, arr);
-  *co_mo = *co_mo + 1;
-  setcolor(12);
-  outtextxy(500, 280, "w -> Up");
-  outtextxy(500, 290, "s -> Down");
-  outtextxy(500, 300, "a -> Left");
-  outtextxy(500, 310, "d -> Right");
-}
 
-void body() //figure
-{
-  setcolor(3);
-  line(0, 100, 450, 100); //horizontal line
-  line(50, 130, 400, 130);
-  line(100, 160, 450, 160);
-  line(150, 190, 300, 190);
-  line(100, 220, 250, 220);
-  line(50, 250, 200, 250);
-  line(0, 400, 500, 400);
-  line(450, 370, 500, 370);
-  line(0, 100, 0, 400); //vertical line
-  line(50, 130, 50, 370);
-  line(100, 160, 100, 220);
-  line(100, 280, 100, 400);
-  line(150, 250, 150, 370);
-  line(200, 280, 200, 400);
-  line(250, 220, 250, 370);
-  line(300, 190, 300, 400);
-  line(350, 160, 350, 370);
-  line(400, 190, 400, 400);
-  line(450, 100, 450, 370);
-  setcolor(14);
-  circle(500, 385, 10);
-  setcolor(WHITE);
-}
-void ball(int j, int k, int l) //ball
-{
-  circle(j, k, l);
-  setcolor(WHITE);
-  setfillstyle(SOLID_FILL, 14);
-  floodfill(j, k, WHITE);
-}
-void condition(int *j, int *k)
-{
-  if (*k == 110)
-  {
-    if (*j < 450 && *j > 0)
-      *k = *k + 5;
-  }
-  if (*j == 10)
-  {
-    if (*k < 400 && *k > 100)
-      *j += 5;
-  }
-  if (*k == 390)
-  {
-    if (*j < 500 && *j > 0)
-      *k -= 5;
-  }
-  if (*j == 440)
-  {
-    if (*k > 100 && *k < 380)
-      *j -= 5;
-  }
-  if (*k == 380)
-  {
-    if (*j < 500 && *j > 440)
-      *k += 5;
-  }
-  if (*k >= 120 && *k <= 140)
-  {
-    if (*j < 410 && *j > 40 && *k <= 130)
-      *k -= 5;
-    if (*j < 410 && *j > 40 && *k >= 130)
-      *k += 5;
-  }
-  if (*k >= 150 && *k <= 170 && *j >= 90 && *j <= 450)
-  {
-    if (*k <= 160)
-      *k -= 10;
-    *k += 5;
-  }
-  if (*k >= 180 && *k <= 200 && *j >= 140 && *j <= 310)
-  {
-    if (*k >= 190)
-      *k += 10;
-    *k -= 5;
-  }
-  if (*k >= 210 && *k <= 230 && *j >= 90 && *j <= 260)
-  {
-    if (*k >= 220)
-      *k += 10;
-    *k -= 5;
-  }
-  if (*k <= 260 && *k >= 240 && *j <= 210 && *j > 40)
-  {
-    if (*k >= 250)
-      *k += 10;
-    *k -= 5;
-  }
-  if (*k <= 370 && *k >= 130 && *j <= 60 && *j >= 40)
-  {
-    if (*j <= 50)
-      *j -= 10;
-    *j += 5;
-  }
-  if (*k <= 220 && *k >= 160 && *j <= 110 && *j >= 90)
-  {
-    if (*j <= 100)
-      *j -= 10;
-    *j += 5;
-  }
-  if (*k <= 400 && *k >= 280 && *j <= 110 && *j >= 90)
-  {
-    if (*j <= 100)
-      *j -= 10;
-    *j += 5;
-  }
-  if (*k <= 370 && *k >= 250 && *j <= 160 && *j >= 140)
-  {
-    if (*j <= 150)
-      *j -= 10;
-    *j += 5;
-  }
-  if (*k <= 400 && *k >= 280 && *j <= 210 && *j >= 190)
-  {
-    if (*j <= 200)
-      *j -= 10;
-    *j += 5;
-  }
-  if (*k <= 370 && *k >= 220 && *j <= 260 && *j >= 240)
-  {
-    if (*j <= 250)
-      *j -= 10;
-    *j += 5;
-  }
-  if (*k <= 400 && *k >= 190 && *j <= 310 && *j >= 290)
-  {
-    if (*j <= 300)
-      *j -= 10;
-    *j += 5;
-  }
-  if (*k <= 370 && *k >= 160 && *j <= 360 && *j >= 340)
-  {
-    if (*j <= 350)
-      *j -= 10;
-    *j += 5;
-  }
-  if (*k <= 400 && *k >= 190 && *j <= 410 && *j >= 390)
-  {
-    if (*j <= 400)
-      *j -= 10;
-    *j += 5;
-  }
-}
-void caption()
-{
-  setcolor(12);
-  settextstyle(0, HORIZ_DIR, 0);
-  outtextxy(10, 70, "Escape from the Maze");
-  outtextxy(10, 85, "or Press 'SPACE' to EXIT");
-  setcolor(WHITE);
-}
-int level_1(int *p)
-{
-  int i, j = 20, k = 250, l = 10, m = 10, co_mo = 0, inc = 0;
-  char c, ch;
+  char ck[100];
+
+  /* request auto detection */
+  int gdriver = DETECT, gmode, errorcode;
+  char ch = 0, h;
+  int x, y;
+
+  /* initialize graphics and local variables */
+  initgraph(&gdriver, &gmode, "C://TURBOC3//BGI ");
+p:
   cleardevice();
-  while (1)
+  before = clock();
+  l = 0;
+  srand(time(0));
+  f11 = f22 = f33 = f44 = f55 = f1 = f2 = f3 = f4 = f5 = h = 0;
+  setaspectratio(1600, 1280);
+  c = 0;
+  x = 80;
+  y = 40;
+  maze(x, y);
+  ch = 0;
+  /* read result of initialization */
+  errorcode = graphresult();
+  /* an error occurred */
+  if (errorcode != grOk)
   {
-    setcolor(13);
-    settextstyle(1, HORIZ_DIR, 6);
-    outtextxy(125, 100, "MAZE Runner");
-    settextstyle(0, HORIZ_DIR, 0);
-    setcolor(9);
-    outtextxy(0, 400, "Press 'space' to play the level");
-    ch = getch();
-    if (ch == ' ')
-      break;
+    printf("Graphics error: %s\n", grapherrormsg(errorcode));
+    printf("Press any key to halt:");
     getch();
+    exit(1);
   }
-  cleardevice();
-  body();        //draw the figure
-  ball(j, k, l); //draw the  ball
-  caption();
-  countm(&co_mo, &inc);
-  for (i = 0; i < m++; i++)
+  while (ch != 27) //escape=27
   {
-    condition(&j, &k); //cheacking condition
-    countm(&co_mo, &inc);
-    c = getch();
+    if (l == 0)
+    {
+    u:
+      g = (rand()) % 10;
+      g = g * 10;
+      if (getpixel(50 + g, 50 + g) == 3)
+        goto u;
+      l = l + 1;
+    }
+    ch = getch();
+    if ((x == 120 && y == 280) && (f11 < 3))
+    {
+      f1 = 1;
+      c = c + 1;
+      f11++;
+    }
+    if ((x == 100 && y == 100) && (f33 < 3))
+    {
+      f3 = 1;
+      c = c + 1;
+      f33++;
+    }
+    if ((x == (50 + g) && y == (50 + g)) && (f22 < 3))
+    {
+      f2 = 1;
+      c = c + 1;
+      f22++;
+    }
+    if ((x == 200 && y == 320) && (f44 < 3))
+    {
+      f4 = 1;
+      c = c + 1;
+      f44++;
+    }
+    if ((x == 210 && y == 140) && (f55 != 2))
+    {
+      f5 = 1;
+      c = c + 1;
+      f55++;
+    }
+
+    if ((x == 80 && y == 40) && (ch != 80)) //only down
+    {
+      outtextxy(350, 350, "INVALID INPUT");
+      continue;
+    }
+    switch (ch)
+    {
+    case 72: //up
+      if (getpixel(x, y - 10) == 3)
+      {
+        outtextxy(35, 300, "INVALID INPUT");
+        continue;
+      }
+      else
+        y = y - 10;
+      break;
+    case 80: //down
+      if (getpixel(x, y + 10) == 3)
+      {
+        outtextxy(350, 200, "INVALID INPUT");
+        continue;
+      }
+      else
+        y = y + 10;
+      break;
+    case 77: //right
+      if (getpixel(x + 10, y) == 3)
+      {
+        outtextxy(350, 200, "INVALID INPUT");
+        continue;
+      }
+      else
+        x = x + 10;
+      break;
+    case 75: //left
+      if (getpixel(x - 10, y) == 3)
+      {
+        outtextxy(350, 200, "INVALID INPUT");
+        continue;
+      }
+      else
+        x = x - 10;
+      break;
+    }
+
     cleardevice();
-    if (c == 75 || c == 'a')
-      j -= 5;
-    if (c == 80 || c == 's')
-      k += 5;
-    if (c == 77 || c == 'd')
-      j += 5;
-    if (c == 72 || c == 'w')
-      k -= 5;
-    if (c == ' ')
-      return 0;
-    *p = co_mo;
-    caption();
-    body();        //draw the figure
-    ball(j, k, l); //draw the ball
-    if (j >= 500)
-      return 1;
+    maze(x, y);
+    if (x == 310)
+    {
+    s:
+
+      h = getch();
+      outtextxy(350, 200, "YOU WIN");
+      diff = -(before - clock());
+      sprintf(ck, "Time taken %d seconds %d milliseconds\n",
+              diff / 10, diff % 10);
+      outtextxy(350, 180, ck);
+
+      outtextxy(350, 220, "PRESS R TO PLAY AGAIN OR Q TO EXIT");
+      if (h == 'q' || h == 'Q')
+      {
+        break;
+      }
+      else if (h == 'r' || h == 'R')
+      {
+        goto p;
+      }
+      else
+      {
+        goto s;
+      } //stop timer
+    }
   }
-
-  return 9999;
-}
-int main()
-{
-  int gd = DETECT, gm;
-  int flag, point = 0;
-  initgraph(&gd, &gm, "C:\\TurboC3\\BGI");
-
-  flag = level_1(&point);
-
   getch();
   closegraph();
-  return flag;
+}
+
+void maze(int x, int y)
+{
+  setcolor(WHITE);
+  outtextxy(400, 100, "COLLECT ALL 5 COINS TO WIN");
+  setcolor(3);
+  line(50, 50, 70, 50);
+  line(90, 50, 290, 50);
+  line(290, 50, 290, 290);
+  line(290, 310, 290, 370);
+  line(50, 370, 290, 370);
+  line(50, 50, 50, 370);
+  line(70, 70, 70, 90);
+  line(50, 90, 70, 90);
+  line(90, 90, 270, 90);
+  line(90, 70, 90, 90);
+  line(50, 110, 250, 110);
+  line(270, 90, 270, 230);
+  line(270, 230, 150, 230);
+  line(150, 230, 150, 150);
+  line(150, 150, 90, 150);
+  line(250, 110, 250, 150);
+  line(250, 150, 200, 150);
+  line(200, 150, 200, 130);
+  line(200, 130, 70, 130);
+  line(70, 130, 70, 310);
+  sprintf(a, "THE NUMBER OF COLLECTED COINS IS %d", c / 2);
+  outtextxy(150, 450, a);
+  line(70, 310, 150, 310);
+  line(150, 310, 150, 350);
+  line(150, 350, 250, 350);
+  line(250, 350, 250, 310);
+  line(250, 310, 170, 310);
+  line(170, 310, 170, 330);
+  line(170, 330, 230, 330);
+  line(90, 150, 90, 290);
+  line(90, 290, 290, 290);
+  line(170, 130, 170, 170);
+  line(270, 290, 270, 350);
+  rectangle(170, 170, 250, 210);
+  line(70, 50, 70, 30);
+  line(90, 50, 90, 30);
+  line(290, 290, 310, 290);
+  line(290, 310, 310, 310);
+  if (c < 10)
+    line(290, 290, 290, 310);
+  if (f1 != 1)
+    circle(120, 280, 3);
+  if (f2 != 1)
+    circle(50 + g, 50 + g, 3);
+  if (f3 != 1)
+    circle(100, 100, 3);
+  if (f4 != 1)
+    circle(200, 320, 3);
+  if (f5 != 1)
+    circle(210, 140, 3);
+
+  setcolor(WHITE);
+  outtextxy(65, 15, "ENTRY");
+  outtextxy(315, 297, "EXIT");
+  setcolor(YELLOW);
+  circle(x, y, 3);
+  setfillstyle(1, 2);
+  floodfill(x, y, 14);
 }
