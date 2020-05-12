@@ -4,15 +4,15 @@
 #include <stdio.h>
 #include <conio.h>
 void maze(int, int);
-char a[50];
+char a[50]; //to store buffer
 int f1, f2, f3, f4; //to check collected coins
-int c = 0; //c: number of coins
+int c = 0; //number of coins
 time_t before; //relative measurement of time
 time_t diff;
 
 void main()
 {
-  char ck[100];
+  char ck[100]; //to store buffer
 
   int gd = DETECT, gm;
   char ch = 0, exitch;
@@ -136,7 +136,7 @@ p:
 void maze(int x, int y)
 {
   setcolor(WHITE);
-  outtextxy(400, 100, "COLLECT ALL 5 COINS TO WIN");
+  outtextxy(400, 100, "COLLECT ALL 4 COINS TO WIN");
   setcolor(3); //blue
   line(50, 50, 70, 50);
   line(90, 50, 290, 50);
