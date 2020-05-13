@@ -43,12 +43,12 @@ int move()
     if (ch1 == 0 || ch1 == 224)
       ch2 = getch();
 
-    if ((x1 == 80 && y1 == 40) && (ch2 != 80 && ch1 != 115)) //start point so only down
+    if ((x1 == 80 && y1 == 40) && (ch2 == 72 || ch2 ==  75 || ch2 ==  77)) //start point so only down
     {
       outtextxy(350, 350, "INVALID INPUT");
       continue;
     }
-    if ((x2 == 80 && y2 == 40) && (ch2 != 80 && ch1 != 115)) //start point so only down
+    if ((x2 == 80 && y2 == 40) && (ch1 == 65 || ch1 == 68 || ch1 == 87 || ch1 == 97 || ch1 == 100 || ch1 == 119)) //start point so only down
     {
       outtextxy(350, 350, "INVALID INPUT");
       continue;
