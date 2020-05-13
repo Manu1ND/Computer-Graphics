@@ -3,64 +3,81 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <conio.h>
-void maze(int, int);
-void move(int, int);
-char a[50]; //to store buffer
+void maze(int, int, int, int);
+int move();
+char a[50], ck[100]; //to store buffer
 int f1, f2, f3, f4; //to check collected coins
 int c = 0; //number of coins
+int x1, y1, x2,  y2;
 time_t before; //relative measurement of time
 time_t diff;
 
 void main()
 {
-  char ck[100]; //to store buffer
 
   int gd = DETECT, gm;
-  char exitch;
-  int x, y;
+  int check = 1;
 
   initgraph(&gd, &gm, "C://TURBOC3//BGI");
-p:
-  cleardevice();
-  before = time(0);
-  f1 = f2 = f3 = f4 = exitch = 0;
-  setaspectratio(1600, 1280);
-  c = 0; //coins
-  x = 80; //start point
-  y = 40; //start point
-  maze(x, y);
-  //ch = 0; 
+  while(check)
+  {
+    cleardevice();
+    before = time(0);
+    f1 = f2 = f3 = f4 = 0;
+    setaspectratio(1600, 1280);
+    c = 0; //coins
+    x1 = x2 = 80; //start point
+    y1 = y2 = 40; //start point
+    maze(x1, y1, x2, y2);
+    //ch = 0; 
+    check=move();
+  }
+  getch();
+  closegraph();
+}
+
+int move()
+{
+  int ch1, ch2, exitch=0, s=1;
   while (ch1 != 27) //escape=27
   {
-    
+    /* if(kbhit)
+    {
+      printf("%d",getch());
+    } */
     ch1 = getch();
     if (ch1 == 0 || ch1 == 224)
       ch2 = getch (); 
-    if ((x == 120 && y == 280) && (f1 < 1)) //coordinates of coin 1
+    if ((x1 == 120 && y1 == 280) && (f1 < 1)) //coordinates of coin 1
     {
       f1 = 1;
       c = c + 1;
     }
     
-    if ((x == 210 && y == 140) && (f2 < 1)) //coordinates of coin 2
+    if ((x1 == 210 && y1 == 140) && (f2 < 1)) //coordinates of coin 2
     {
       f2 = 1;
       c = c + 1;
     }
 
-    if ((x == 100 && y == 100) && (f3 < 1)) //coordinates of coin 3
+    if ((x1 == 100 && y1 == 100) && (f3 < 1)) //coordinates of coin 3
     {
       f3 = 1;
       c = c + 1;
     }
     
-    if ((x == 200 && y == 320) && (f4 < 1)) //coordinates of coin 4
+    if ((x1 == 200 && y1 == 320) && (f4 < 1)) //coordinates of coin 4
     {
       f4 = 1;
       c = c + 1;
     }
 
-    if ((x == 80 && y == 40) && (ch2 != 80)) //start point so only down
+    if ((x1 == 80 && y1 == 40) && (ch2 != 80 && ch1 != 115)) //start point so only down
+    {
+      outtextxy(350, 350, "INVALID INPUT");
+      continue;
+    }
+    if ((x2 == 80 && y2 == 40) && (ch2 != 80 && ch1 != 115)) //start point so only down
     {
       outtextxy(350, 350, "INVALID INPUT");
       continue;
@@ -71,65 +88,89 @@ p:
         switch (ch2)
         {
           case 72: //up
-            if (getpixel(x, y - 10) == 3) //checks color
+            if (getpixel(x1, y1 - 10) == 3) //checks color
             {
               outtextxy(35, 300, "INVALID INPUT");
               continue;
             }
             else
-              y = y - 10;
+              y1 = y1 - 10;
             break;
           case 80: //down
-            if (getpixel(x, y + 10) == 3) //checks color
+            if (getpixel(x1, y1 + 10) == 3) //checks color
             {
               outtextxy(350, 200, "INVALID INPUT");
               continue;
             }
             else
-              y = y + 10;
+              y1 = y1 + 10;
             break;
           case 77: //right
-            if (getpixel(x + 10, y) == 3) //checks color
+            if (getpixel(x1 + 10, y1) == 3) //checks color
             {
               outtextxy(350, 200, "INVALID INPUT");
               continue;
             }
             else
-              x = x + 10;
+              x1 = x1 + 10;
             break;
           case 75: //left
-            if (getpixel(x - 10, y) == 3) //checks color
+            if (getpixel(x1 - 10, y1) == 3) //checks color
             {
               outtextxy(350, 200, "INVALID INPUT");
               continue;
             }
             else
-              x = x - 10;
+              x1 = x1 - 10;
             break;
         }
         break;
       
       case 87: //W
       case 119: //w
-        print("q");
+        if (getpixel(x2, y2 - 10) == 3) //checks color
+          {
+            outtextxy(35, 300, "INVALID INPUT");
+            continue;
+          }
+        else
+          y2 = y2 - 10;
         break;
       case 83: //S
       case 115: //s
-        print("s");
+        if (getpixel(x2, y2 + 10) == 3) //checks color
+        {
+          outtextxy(350, 200, "INVALID INPUT");
+          continue;
+        }
+        else
+          y2 = y2 + 10;
         break;
       case 65: //A
       case 97: //a
-        print("a");
+        if (getpixel(x2 - 10, y2) == 3) //checks color
+        {
+          outtextxy(350, 200, "INVALID INPUT");
+          continue;
+        }
+        else
+          x2 = x2 - 10;
         break;
       case 68: //D
       case 100: //d
-        print("d");
-        break;
+        if (getpixel(x2 + 10, y2) == 3) //checks color
+          {
+            outtextxy(350, 200, "INVALID INPUT");
+            continue;
+          }
+          else
+            x2 = x2 + 10;
+          break;
     }
 
     cleardevice();
-    maze(x, y);
-    if (x == 310) //end point
+    maze(x1, y1, x2, y2);
+    if (x1 == 310) //end point
     {
       outtextxy(350, 200, "YOU WIN");
       diff = time(0) - before;
@@ -138,32 +179,23 @@ p:
       //stop timer
 
       outtextxy(350, 220, "PRESS R TO PLAY AGAIN OR Q TO EXIT");
-    s:
-      exitch = getch();
-      if (exitch == 'q' || exitch == 'Q')
+      while(s)
       {
-        break;
-      }
-      else if (exitch == 'r' || exitch == 'R')
-      {
-        goto p;
-      }
-      else
-      {
-        goto s;
+        exitch = getch();
+        if (exitch == 'q' || exitch == 'Q')
+        {
+          return 0;
+        }
+        else if (exitch == 'r' || exitch == 'R')
+        {
+          return 1;
+        }
       }
     }
   }
-  getch();
-  closegraph();
 }
 
-void move(int ch1,int ch2)
-{
-  int ch1, ch2;
-}
-
-void maze(int x, int y)
+void maze(int x1, int y1, int x2, int y2)
 {
   setcolor(WHITE);
   outtextxy(400, 100, "COLLECT ALL 4 COINS TO WIN");
@@ -222,7 +254,11 @@ void maze(int x, int y)
   outtextxy(65, 15, "ENTRY");
   outtextxy(315, 297, "EXIT");
   setcolor(YELLOW);
-  circle(x, y, 3);
+  circle(x1, y1, 3);
   setfillstyle(1, 2);
-  floodfill(x, y, 14); // color pointer
+  floodfill(x1, y1, 14); // color pointer
+  setcolor(RED);
+  circle(x2, y2, 3);
+  setfillstyle(1, 15);
+  floodfill(x2, y2, 4); // color pointer
 }
