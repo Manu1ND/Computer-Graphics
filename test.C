@@ -38,10 +38,7 @@ int move()
   int ch1, ch2, exitch = 0, s = 1;
   while (ch1 != 27) //escape=27
   {
-    /* if(kbhit)
-    {
-      printf("%d",getch());
-    } */
+
     ch1 = getch();
     if (ch1 == 0 || ch1 == 224)
       ch2 = getch();
@@ -144,9 +141,10 @@ int move()
 
     cleardevice();
     maze(x1, y1, x2, y2);
-    if (x1 == 310) //end point
+    if (x1 == 310 || x2 == 310) //end point
     {
-      outtextxy(350, 200, "YOU WIN");
+      (x1 == 310) ? outtextxy(350, 200, "Player1 WIN") : outtextxy(350, 200, "Player2 WIN");
+      ;
       diff = time(0) - before;
       sprintf(ck, "Time taken %d seconds", diff);
       outtextxy(350, 180, ck);
