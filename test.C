@@ -6,9 +6,8 @@
 void maze(int, int, int, int);
 int move();
 char a[50], ck[100]; //to store buffer
-int f1, f2, f3, f4; //to check collected coins
-int c = 0; //number of coins
-int x1, y1, x2,  y2;
+
+int x1, y1, x2, y2;
 time_t before; //relative measurement of time
 time_t diff;
 
@@ -19,18 +18,16 @@ void main()
   int check = 1;
 
   initgraph(&gd, &gm, "C://TURBOC3//BGI");
-  while(check)
+  while (check)
   {
     cleardevice();
     before = time(0);
-    f1 = f2 = f3 = f4 = 0;
     setaspectratio(1600, 1280);
-    c = 0; //coins
     x1 = x2 = 80; //start point
     y1 = y2 = 40; //start point
     maze(x1, y1, x2, y2);
-    //ch = 0; 
-    check=move();
+    //ch = 0;
+    check = move();
   }
   getch();
   closegraph();
@@ -38,7 +35,7 @@ void main()
 
 int move()
 {
-  int ch1, ch2, exitch=0, s=1;
+  int ch1, ch2, exitch = 0, s = 1;
   while (ch1 != 27) //escape=27
   {
     /* if(kbhit)
@@ -47,30 +44,7 @@ int move()
     } */
     ch1 = getch();
     if (ch1 == 0 || ch1 == 224)
-      ch2 = getch (); 
-    if ((x1 == 120 && y1 == 280) && (f1 < 1)) //coordinates of coin 1
-    {
-      f1 = 1;
-      c = c + 1;
-    }
-    
-    if ((x1 == 210 && y1 == 140) && (f2 < 1)) //coordinates of coin 2
-    {
-      f2 = 1;
-      c = c + 1;
-    }
-
-    if ((x1 == 100 && y1 == 100) && (f3 < 1)) //coordinates of coin 3
-    {
-      f3 = 1;
-      c = c + 1;
-    }
-    
-    if ((x1 == 200 && y1 == 320) && (f4 < 1)) //coordinates of coin 4
-    {
-      f4 = 1;
-      c = c + 1;
-    }
+      ch2 = getch();
 
     if ((x1 == 80 && y1 == 40) && (ch2 != 80 && ch1 != 115)) //start point so only down
     {
@@ -84,88 +58,88 @@ int move()
     }
     switch (ch1)
     {
-      case 0:
-        switch (ch2)
+    case 0:
+      switch (ch2)
+      {
+      case 72:                          //up
+        if (getpixel(x1, y1 - 10) == 3) //checks color
         {
-          case 72: //up
-            if (getpixel(x1, y1 - 10) == 3) //checks color
-            {
-              outtextxy(35, 300, "INVALID INPUT");
-              continue;
-            }
-            else
-              y1 = y1 - 10;
-            break;
-          case 80: //down
-            if (getpixel(x1, y1 + 10) == 3) //checks color
-            {
-              outtextxy(350, 200, "INVALID INPUT");
-              continue;
-            }
-            else
-              y1 = y1 + 10;
-            break;
-          case 77: //right
-            if (getpixel(x1 + 10, y1) == 3) //checks color
-            {
-              outtextxy(350, 200, "INVALID INPUT");
-              continue;
-            }
-            else
-              x1 = x1 + 10;
-            break;
-          case 75: //left
-            if (getpixel(x1 - 10, y1) == 3) //checks color
-            {
-              outtextxy(350, 200, "INVALID INPUT");
-              continue;
-            }
-            else
-              x1 = x1 - 10;
-            break;
+          outtextxy(35, 300, "INVALID INPUT");
+          continue;
         }
-        break;
-      
-      case 87: //W
-      case 119: //w
-        if (getpixel(x2, y2 - 10) == 3) //checks color
-          {
-            outtextxy(35, 300, "INVALID INPUT");
-            continue;
-          }
         else
-          y2 = y2 - 10;
+          y1 = y1 - 10;
         break;
-      case 83: //S
-      case 115: //s
-        if (getpixel(x2, y2 + 10) == 3) //checks color
+      case 80:                          //down
+        if (getpixel(x1, y1 + 10) == 3) //checks color
         {
           outtextxy(350, 200, "INVALID INPUT");
           continue;
         }
         else
-          y2 = y2 + 10;
+          y1 = y1 + 10;
         break;
-      case 65: //A
-      case 97: //a
-        if (getpixel(x2 - 10, y2) == 3) //checks color
+      case 77:                          //right
+        if (getpixel(x1 + 10, y1) == 3) //checks color
         {
           outtextxy(350, 200, "INVALID INPUT");
           continue;
         }
         else
-          x2 = x2 - 10;
+          x1 = x1 + 10;
         break;
-      case 68: //D
-      case 100: //d
-        if (getpixel(x2 + 10, y2) == 3) //checks color
-          {
-            outtextxy(350, 200, "INVALID INPUT");
-            continue;
-          }
-          else
-            x2 = x2 + 10;
-          break;
+      case 75:                          //left
+        if (getpixel(x1 - 10, y1) == 3) //checks color
+        {
+          outtextxy(350, 200, "INVALID INPUT");
+          continue;
+        }
+        else
+          x1 = x1 - 10;
+        break;
+      }
+      break;
+
+    case 87:                          //W
+    case 119:                         //w
+      if (getpixel(x2, y2 - 10) == 3) //checks color
+      {
+        outtextxy(35, 300, "INVALID INPUT");
+        continue;
+      }
+      else
+        y2 = y2 - 10;
+      break;
+    case 83:                          //S
+    case 115:                         //s
+      if (getpixel(x2, y2 + 10) == 3) //checks color
+      {
+        outtextxy(350, 200, "INVALID INPUT");
+        continue;
+      }
+      else
+        y2 = y2 + 10;
+      break;
+    case 65:                          //A
+    case 97:                          //a
+      if (getpixel(x2 - 10, y2) == 3) //checks color
+      {
+        outtextxy(350, 200, "INVALID INPUT");
+        continue;
+      }
+      else
+        x2 = x2 - 10;
+      break;
+    case 68:                          //D
+    case 100:                         //d
+      if (getpixel(x2 + 10, y2) == 3) //checks color
+      {
+        outtextxy(350, 200, "INVALID INPUT");
+        continue;
+      }
+      else
+        x2 = x2 + 10;
+      break;
     }
 
     cleardevice();
@@ -174,12 +148,12 @@ int move()
     {
       outtextxy(350, 200, "YOU WIN");
       diff = time(0) - before;
-      sprintf(ck, "Time taken %d seconds\n", diff);
+      sprintf(ck, "Time taken %d seconds", diff);
       outtextxy(350, 180, ck);
       //stop timer
 
       outtextxy(350, 220, "PRESS R TO PLAY AGAIN OR Q TO EXIT");
-      while(s)
+      while (s)
       {
         exitch = getch();
         if (exitch == 'q' || exitch == 'Q')
@@ -198,7 +172,6 @@ int move()
 void maze(int x1, int y1, int x2, int y2)
 {
   setcolor(WHITE);
-  outtextxy(400, 100, "COLLECT ALL 4 COINS TO WIN");
   setcolor(3); //blue
   line(50, 50, 70, 50);
   line(90, 50, 290, 50);
@@ -220,7 +193,6 @@ void maze(int x1, int y1, int x2, int y2)
   line(200, 150, 200, 130);
   line(200, 130, 70, 130);
   line(70, 130, 70, 310);
-  sprintf(a, "THE NUMBER OF COLLECTED COINS IS %d", c); //string print
   outtextxy(150, 450, a);
   line(70, 310, 150, 310);
   line(150, 310, 150, 350);
@@ -238,17 +210,6 @@ void maze(int x1, int y1, int x2, int y2)
   line(90, 50, 90, 30);
   line(290, 290, 310, 290);
   line(290, 310, 310, 310);
-
-  if (c < 4) //to open exit line after collecting all coins
-    line(290, 290, 290, 310);
-  if (f1 != 1) //check coin collected
-    circle(120, 280, 3);
-  if (f2 != 1) //check coin collected
-    circle(210, 140, 3);
-  if (f3 != 1) //check coin collected
-    circle(100, 100, 3);
-  if (f4 != 1) //check coin collected
-    circle(200, 320, 3);
 
   setcolor(WHITE);
   outtextxy(65, 15, "ENTRY");
