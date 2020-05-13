@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <conio.h>
 void maze(int, int);
+void move(int, int);
 char a[50]; //to store buffer
 int f1, f2, f3, f4; //to check collected coins
 int c = 0; //number of coins
@@ -15,7 +16,7 @@ void main()
   char ck[100]; //to store buffer
 
   int gd = DETECT, gm;
-  char ch = 0, exitch;
+  char exitch;
   int x, y;
 
   initgraph(&gd, &gm, "C://TURBOC3//BGI");
@@ -28,11 +29,13 @@ p:
   x = 80; //start point
   y = 40; //start point
   maze(x, y);
-  ch = 0; 
-  while (ch != 27) //escape=27
+  //ch = 0; 
+  while (ch1 != 27) //escape=27
   {
     
-    ch = getch();
+    ch1 = getch();
+    if (ch1 == 0 || ch1 == 224)
+      ch2 = getch (); 
     if ((x == 120 && y == 280) && (f1 < 1)) //coordinates of coin 1
     {
       f1 = 1;
@@ -57,49 +60,71 @@ p:
       c = c + 1;
     }
 
-    if ((x == 80 && y == 40) && (ch != 80)) //start point so only down
+    if ((x == 80 && y == 40) && (ch2 != 80)) //start point so only down
     {
       outtextxy(350, 350, "INVALID INPUT");
       continue;
     }
-    switch (ch)
+    switch (ch1)
     {
-    case 72: //up
-      if (getpixel(x, y - 10) == 3) //checks color
-      {
-        outtextxy(35, 300, "INVALID INPUT");
-        continue;
-      }
-      else
-        y = y - 10;
-      break;
-    case 80: //down
-      if (getpixel(x, y + 10) == 3) //checks color
-      {
-        outtextxy(350, 200, "INVALID INPUT");
-        continue;
-      }
-      else
-        y = y + 10;
-      break;
-    case 77: //right
-      if (getpixel(x + 10, y) == 3) //checks color
-      {
-        outtextxy(350, 200, "INVALID INPUT");
-        continue;
-      }
-      else
-        x = x + 10;
-      break;
-    case 75: //left
-      if (getpixel(x - 10, y) == 3) //checks color
-      {
-        outtextxy(350, 200, "INVALID INPUT");
-        continue;
-      }
-      else
-        x = x - 10;
-      break;
+      case 0:
+        switch (ch2)
+        {
+          case 72: //up
+            if (getpixel(x, y - 10) == 3) //checks color
+            {
+              outtextxy(35, 300, "INVALID INPUT");
+              continue;
+            }
+            else
+              y = y - 10;
+            break;
+          case 80: //down
+            if (getpixel(x, y + 10) == 3) //checks color
+            {
+              outtextxy(350, 200, "INVALID INPUT");
+              continue;
+            }
+            else
+              y = y + 10;
+            break;
+          case 77: //right
+            if (getpixel(x + 10, y) == 3) //checks color
+            {
+              outtextxy(350, 200, "INVALID INPUT");
+              continue;
+            }
+            else
+              x = x + 10;
+            break;
+          case 75: //left
+            if (getpixel(x - 10, y) == 3) //checks color
+            {
+              outtextxy(350, 200, "INVALID INPUT");
+              continue;
+            }
+            else
+              x = x - 10;
+            break;
+        }
+        break;
+      
+      case 87: //W
+      case 119: //w
+        print("q");
+        break;
+      case 83: //S
+      case 115: //s
+        print("s");
+        break;
+      case 65: //A
+      case 97: //a
+        print("a");
+        break;
+      case 68: //D
+      case 100: //d
+        print("d");
+        break;
     }
 
     cleardevice();
@@ -131,6 +156,11 @@ p:
   }
   getch();
   closegraph();
+}
+
+void move(int ch1,int ch2)
+{
+  int ch1, ch2;
 }
 
 void maze(int x, int y)
